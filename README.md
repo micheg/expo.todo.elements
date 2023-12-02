@@ -13,3 +13,12 @@ I used "react native elements" because it's a fantastic library and has great ex
 
 ## Preview
 ![preview](https://michelangelo.altervista.org/videos/todo.app.gif "preview")
+
+## Build
+
+[see docs here.](https://docs.expo.dev/build/setup/)
+
+* npx eas-cli@latest login
+* npx eas-cli@latest build:configure
+* npx eas-cli@latest build --platform android
+* npx eas-cli@latest build -p android --profile preview (for getting apk)
