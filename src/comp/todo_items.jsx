@@ -1,22 +1,22 @@
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 
 import TodoItem from "./todo_item";
 
 export default function TodoItems({items, on_check, on_delete})
 {
     return (
-        <View>
+        <ScrollView style={{ backgroundColor: "white", flex: 1 }}>
         {
-            items.map((l, i) => (
+            items.map((item, idx) => (
                 <TodoItem
-                    key={i}
-                    item={l}
-                    idx={i}
+                    key={item.key}
+                    item={item}
+                    idx={idx}
                     on_check={on_check}
                     on_delete={on_delete}
                 />
             ))
         }
-        </View>
+        </ScrollView>
     );
 }

@@ -1,11 +1,22 @@
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { Skeleton } from '@rneui/themed';
 
 export default function Spinner()
 {
     return (
-        <View style={{ flex: 1 }}>
-            <Skeleton width={120} height={40} />
+        <View style={
+            {
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center'
+            }
+        }>
+            <Skeleton circle
+                width={80}
+                height={80}
+                animation={'pulse'}
+            />
+            <Text>Loading data...</Text>
         </View>
     )
 }

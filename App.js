@@ -28,7 +28,7 @@ export default () =>
     }, []);
 
     if (items === null) return (<Spinner />);
-
+    
     return (
         <Main
             storage_hash={STORAGE_HASH}

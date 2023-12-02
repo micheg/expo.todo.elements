@@ -6,7 +6,10 @@ export default function Header()
     return (
         <>
             <StatusBar barStyle='default'></StatusBar>
-            <Text h2={true}>TODO List</Text>
+            <Text
+                style={{textAlign:'center'}}
+                h2={true}>TODO List
+            </Text>
         </>
     );
 }

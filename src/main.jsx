@@ -23,20 +23,19 @@ export default function Main({items, storage_hash})
         }
     };
 
-    const hndl_item_add = (_text) =>
+    const hndl_item_add = (data) =>
     {
+        const _text = data.title;
         if (_text.length <= 0) return -1;
         set_todos(prev_state =>
         {
-            return ([...prev_state, { checked: false, label: _text }]);
+            return ([{ checked: false, label: _text, desc: data.desc, key:data.key }, ...prev_state]);
         });
     };
 
-    const hndl_item_del = (idx) =>
+    const hndl_item_del = (key) =>
     {
-        const tmp = [...todos];
-        tmp.splice(idx, 1);
-        set_todos(tmp);
+        set_todos(todos.filter(i=>i.key !== key));
     };
 
     const hndl_item_chk = (idx) =>

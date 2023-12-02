@@ -1,22 +1,41 @@
-import { ListItem } from '@rneui/themed';
+import { ListItem, Icon, Button } from '@rneui/themed';
 
-export default function TodoItem({item, idx, on_check, on_delete})
+export default function TodoItem({ item, idx, on_check, on_delete })
 {
     return (
-        <ListItem bottomDivider>
+        <ListItem.Swipeable bottomDivider
+            leftWidth={80}
+            rightWidth={90}
+            minSlideWidth={40}
+            rightContent={(action) => (
+                <Button
+                    containerStyle={{
+                        flex: 1,
+                        justifyContent: "center",
+                        backgroundColor: "#f52c2c",
+                    }}
+                    type="clear"
+                    icon={{
+                        name: "archive-outline",
+                        type: "material-community"
+                    }}
+                    onPress={()=>
+                    {
+                        action();
+                        on_delete(item.key);
+                    }}
+                />
+            )}
+        >
             <ListItem.CheckBox
                 checked={item.checked}
-                onPress={ () => on_check(idx) }
+                onPress={() => on_check(idx)}
             />
             <ListItem.Content>
                 <ListItem.Title>{item.label}</ListItem.Title>
+                <ListItem.Subtitle>{item.desc}</ListItem.Subtitle>
             </ListItem.Content>
-            <ListItem.Chevron
-                name="trash-can-outline"
-                type="material-community"
-                color="grey"
-                onPress={ () => on_delete(idx) }
-            />
-        </ListItem>
+            <Icon name="label-important-outline" type="material" />
+        </ListItem.Swipeable>
     );
 }
