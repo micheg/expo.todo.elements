@@ -29,7 +29,7 @@ export default function TodoItem({ item, idx, on_check, on_delete })
         >
             <ListItem.CheckBox
                 checked={item.checked}
-                onPress={() => on_check(idx)}
+                onPress={() => on_check(item.key)}
             />
             <ListItem.Content>
                 <ListItem.Title>{item.label}</ListItem.Title>

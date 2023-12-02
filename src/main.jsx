@@ -1,4 +1,4 @@
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import Header from './comp/header';
 import InputBox from './comp/input_box';
 import { useState, useEffect } from 'react';
@@ -6,7 +6,7 @@ import TodoItems from './comp/todo_items';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function Main({items, storage_hash})
+export default function Main({ items, storage_hash })
 {
     const [todos, set_todos] = useState(items);
 
@@ -27,21 +27,52 @@ export default function Main({items, storage_hash})
     {
         const _text = data.title;
         if (_text.length <= 0) return -1;
+
+        const tmp = todos.filter(i => i.key === data.key);
+        if (tmp.length > 0)
+        {
+            Alert.alert('Todo APP', 'item already in list',
+            [
+                { text: 'OK', onPress: () => console.log('OK Pressed') }
+            ]);
+            return -1;
+        }
+
         set_todos(prev_state =>
         {
-            return ([{ checked: false, label: _text, desc: data.desc, key:data.key }, ...prev_state]);
+            return ([{ checked: false, label: _text, desc: data.desc, key: data.key }, ...prev_state]);
         });
     };
 
     const hndl_item_del = (key) =>
     {
-        set_todos(todos.filter(i=>i.key !== key));
+        Alert.alert('Todo APP', 'delete item?',
+        [
+            {
+                text: 'Cancel',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+            },
+            {
+                text: 'OK', onPress: () =>
+                {
+                    console.log('OK Pressed');
+                    set_todos(todos.filter(i => i.key !== key));
+                }
+            },
+        ]);
     };
 
-    const hndl_item_chk = (idx) =>
+    const hndl_item_chk = (key) =>
     {
         const tmp = [...todos];
-        tmp[idx].checked = !tmp[idx].checked;
+        tmp.forEach(i =>
+        {
+            if(i.key === key)
+            {
+                i.checked = !i.checked;
+            }
+        });
         set_todos(tmp);
     };
 
@@ -54,12 +85,12 @@ export default function Main({items, storage_hash})
         <View style={{ flex: 1 }}>
             <Header />
             <InputBox
-                on_fire={(text) => {hndl_item_add(text)}}
+                on_fire={(text) => { hndl_item_add(text) }}
             />
             <TodoItems
                 items={todos}
-                on_check={idx => hndl_item_chk(idx)}
-                on_delete={idx => hndl_item_del(idx)}
+                on_check={key => hndl_item_chk(key)}
+                on_delete={key => hndl_item_del(key)}
             />
         </View>
     );
