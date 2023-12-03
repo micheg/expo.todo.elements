@@ -22,3 +22,4 @@ I used "react native elements" because it's a fantastic library and has great ex
 * npx eas-cli@latest build:configure
 * npx eas-cli@latest build --platform android
 * npx eas-cli@latest build -p android --profile preview (for getting apk)
+* npx expo start --no-dev --minify (for best performance and no debug)
