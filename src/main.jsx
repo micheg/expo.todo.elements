@@ -80,6 +80,32 @@ export default function Main({ items, storage_hash })
         set_todos(tmp);
     };
 
+    const hndl_clear_all = () =>
+    {
+        Alert.alert('Todo APP', 'do you want to delete all data?',
+        [
+            {
+                text: 'Cancel',
+                style: 'cancel',
+            },
+            {
+                text: 'OK', onPress: () =>
+                {
+                    AsyncStorage.clear().then(() =>
+                    {
+                        set_todos([]);
+                        Alert.alert('Todo APP', 'data erased',
+                        [
+                            {
+                                text: 'Ok',
+                            }
+                        ]);
+                    });
+                }
+            }
+        ]);
+    };
+
     useEffect(() =>
     {
         store_data(todos);
@@ -87,7 +113,9 @@ export default function Main({ items, storage_hash })
 
     return (
         <SafeAreaProvider>
-            <AppHeader />
+            <AppHeader
+                on_clean={hndl_clear_all}
+            />
             <View style={{ flex: 1 }}>
                 <Header />
                 <InputBox

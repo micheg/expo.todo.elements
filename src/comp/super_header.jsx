@@ -13,7 +13,7 @@ function HDI(props)
     )
 }
 
-export default function AppHeader()
+export default function AppHeader({on_clean})
 {
     const [visible, set_visible] = useState(false);
 
@@ -27,32 +27,6 @@ export default function AppHeader()
                 text: 'OK', onPress: () =>
                 {
                     console.log('OK Pressed');
-                }
-            }
-        ]);
-    };
-
-    const hndl_clear_all = () =>
-    {
-        Alert.alert('Todo APP', 'do you want to delete all data?',
-        [
-            {
-                text: 'Cancel',
-                style: 'cancel',
-            },
-            {
-                text: 'OK', onPress: () =>
-                {
-                    AsyncStorage.clear().then(() =>
-                    {
-                        Alert.alert('Todo APP', 'data erased',
-                        [
-                            {
-                                text: 'Cancel',
-                                style: 'cancel',
-                            }
-                        ]);
-                    });
                 }
             }
         ]);
@@ -102,7 +76,7 @@ export default function AppHeader()
                 <Text
                     h4={true}
                     style={{color: '#fff'}}
-                    onPress={hndl_clear_all}
+                    onPress={on_clean}
                 >
                     Clear All
                 </Text>
