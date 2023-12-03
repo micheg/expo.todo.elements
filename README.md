@@ -34,3 +34,5 @@ Setting Android SDK, then:
     ./gradlew assembleRelease
 
 Use bundleRelease for getting AAB.
+
+See https://docs.expo.dev/build-reference/apk/
