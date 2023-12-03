@@ -47,6 +47,7 @@ export default function InputBox({ on_fire })
                 title={'Add'}
                 onPress={() =>
                 {
+                    Keyboard.dismiss();
                     set_data(base_state);
                     on_fire(data);
                 }}

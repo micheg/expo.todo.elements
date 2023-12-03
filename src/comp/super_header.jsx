@@ -69,14 +69,22 @@ export default function AppHeader({on_clean})
                 <Text
                     h4={true}
                     style={{color: '#fff'}}
-                    onPress={hndl_about_btn}
+                    onPress={e =>
+                    {
+                        set_visible(false);
+                        hndl_about_btn();
+                    }}
                 >
                     About
                 </Text>
                 <Text
                     h4={true}
                     style={{color: '#fff'}}
-                    onPress={on_clean}
+                    onPress={e =>
+                    {
+                        set_visible(false);
+                        on_clean();
+                    }}
                 >
                     Clear All
                 </Text>
