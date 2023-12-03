@@ -1,6 +1,6 @@
 import md5 from 'md5-hash'
 
-import { View } from 'react-native';
+import { View, Keyboard } from 'react-native';
 import { Input, Button } from '@rneui/themed';
 import { useState } from 'react';
 
@@ -27,6 +27,8 @@ export default function InputBox({ on_fire })
                         return {title: value, desc: prev_state.desc, key: md5(value)}
                     });
                 }}
+                enterKeyHint={'done'}
+                onSubmitEditing={() => Keyboard.dismiss()}
             />
             <Input
                 placeholder='Add Description'
@@ -38,6 +40,8 @@ export default function InputBox({ on_fire })
                         return {title: prev_state.title, desc: value, key: prev_state.key}
                     });
                 }}
+                enterKeyHint={'done'}
+                onSubmitEditing={() => Keyboard.dismiss()}
             />
             <Button
                 title={'Add'}

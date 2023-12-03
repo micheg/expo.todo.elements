@@ -3,6 +3,9 @@ import { View, Alert } from 'react-native';
 import { useState } from 'react';
 import { Text } from '@rneui/themed';
 
+// storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 function HDI(props)
 {
     return (
@@ -25,7 +28,33 @@ export default function AppHeader()
                 {
                     console.log('OK Pressed');
                 }
+            }
+        ]);
+    };
+
+    const hndl_clear_all = () =>
+    {
+        Alert.alert('Todo APP', 'do you want to delete all data?',
+        [
+            {
+                text: 'Cancel',
+                style: 'cancel',
             },
+            {
+                text: 'OK', onPress: () =>
+                {
+                    AsyncStorage.clear().then(() =>
+                    {
+                        Alert.alert('Todo APP', 'data erased',
+                        [
+                            {
+                                text: 'Cancel',
+                                style: 'cancel',
+                            }
+                        ]);
+                    });
+                }
+            }
         ]);
     };
 
@@ -34,8 +63,9 @@ export default function AppHeader()
         flex: 0,
         justifyContent: 'center',
         alignItems: 'flex-end',
-        padding: 10
-    }
+        padding: 10,
+        backgroundColor: '#6495ed',
+    };
 
     return (
         <>
@@ -46,22 +76,36 @@ export default function AppHeader()
                     text: "App Todo",
                     style: { color: "#fff" }
                 }}
+                backgroundColor={'#6495ed'}
                 centerContainerStyle={{}}
                 containerStyle={{ width: '100%' }}
                 leftContainerStyle={{}}
                 linearGradientProps={{}}
                 placement="center"
-                rightComponent=<HDI
+                rightComponent={
+                <HDI
                     name={'menu'}
                     color={'#fff'}
                     onPress={e => set_visible(!visible)}
-                />
+                />}
                 rightContainerStyle={{}}
                 statusBarProps={{}}
             />
             {visible && <View style={_style}>
-                <Text h4={true} onPress={hndl_about_btn}>About</Text>
-                <Text h4={true}>Clear All</Text>
+                <Text
+                    h4={true}
+                    style={{color: '#fff'}}
+                    onPress={hndl_about_btn}
+                >
+                    About
+                </Text>
+                <Text
+                    h4={true}
+                    style={{color: '#fff'}}
+                    onPress={hndl_clear_all}
+                >
+                    Clear All
+                </Text>
             </View>
             }
         </>

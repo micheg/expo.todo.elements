@@ -35,7 +35,7 @@ export default function TodoItem({ item, idx, on_check, on_delete })
                 <ListItem.Title>{item.label}</ListItem.Title>
                 <ListItem.Subtitle>{item.desc}</ListItem.Subtitle>
             </ListItem.Content>
-            <Icon name="label-important-outline" type="material" />
+            <Icon name="arrow-back" type="material" />
         </ListItem.Swipeable>
     );
 }
