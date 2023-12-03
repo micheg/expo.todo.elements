@@ -23,3 +23,14 @@ I used "react native elements" because it's a fantastic library and has great ex
 * npx eas-cli@latest build --platform android
 * npx eas-cli@latest build -p android --profile preview (for getting apk)
 * npx expo start --no-dev --minify (for best performance and no debug)
+
+## Local build
+
+Setting Android SDK, then:
+
+    npx expo prebuild --platform android --clean
+    cd android
+    ./gradlew clean
+    ./gradlew assembleRelease
+
+Use bundleRelease for getting AAB.
