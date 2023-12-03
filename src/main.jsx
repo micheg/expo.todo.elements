@@ -1,10 +1,14 @@
+// core libs
+import { useState, useEffect } from 'react';
 import { View, Alert } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+// storage
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// ui components
 import Header from './comp/header';
 import InputBox from './comp/input_box';
-import { useState, useEffect } from 'react';
 import TodoItems from './comp/todo_items';
-
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AppHeader from './comp/super_header';
 
 export default function Main({ items, storage_hash })
 {
@@ -32,9 +36,9 @@ export default function Main({ items, storage_hash })
         if (tmp.length > 0)
         {
             Alert.alert('Todo APP', 'item already in list',
-            [
-                { text: 'OK', onPress: () => console.log('OK Pressed') }
-            ]);
+                [
+                    { text: 'OK', onPress: () => console.log('OK Pressed') }
+                ]);
             return -1;
         }
 
@@ -68,7 +72,7 @@ export default function Main({ items, storage_hash })
         const tmp = [...todos];
         tmp.forEach(i =>
         {
-            if(i.key === key)
+            if (i.key === key)
             {
                 i.checked = !i.checked;
             }
@@ -82,16 +86,19 @@ export default function Main({ items, storage_hash })
     }, [todos]);
 
     return (
-        <View style={{ flex: 1 }}>
-            <Header />
-            <InputBox
-                on_fire={(text) => { hndl_item_add(text) }}
-            />
-            <TodoItems
-                items={todos}
-                on_check={key => hndl_item_chk(key)}
-                on_delete={key => hndl_item_del(key)}
-            />
-        </View>
+        <SafeAreaProvider>
+            <AppHeader />
+            <View style={{ flex: 1 }}>
+                <Header />
+                <InputBox
+                    on_fire={(text) => { hndl_item_add(text) }}
+                />
+                <TodoItems
+                    items={todos}
+                    on_check={key => hndl_item_chk(key)}
+                    on_delete={key => hndl_item_del(key)}
+                />
+            </View>
+        </SafeAreaProvider>
     );
 }
